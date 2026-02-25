@@ -1,8 +1,7 @@
-package com.filipeguerreiro.tddapirest;
+package com.filipeguerreiro.tddapirest.service;
 
 import com.filipeguerreiro.tddapirest.model.Product;
 import com.filipeguerreiro.tddapirest.repository.ProductRepository;
-import com.filipeguerreiro.tddapirest.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

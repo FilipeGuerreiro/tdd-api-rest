@@ -1,9 +1,8 @@
-package com.filipeguerreiro.tddapirest;
+package com.filipeguerreiro.tddapirest.service;
 
 import com.filipeguerreiro.tddapirest.model.Product;
 import com.filipeguerreiro.tddapirest.mongodbcontainer.AbstractIntegrationTest;
 import com.filipeguerreiro.tddapirest.repository.ProductRepository;
-import com.filipeguerreiro.tddapirest.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

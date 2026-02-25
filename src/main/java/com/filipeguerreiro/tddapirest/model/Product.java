@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "products")
 public class Product {
     @Id
@@ -13,6 +15,8 @@ public class Product {
     private String title;
     private Double price;
     private Integer stock;
+    private String category;
+    private List<Attribute> attributes;
 
     public Product(){}
 
@@ -65,4 +69,15 @@ public class Product {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<Attribute> getAttributes() { return attributes; }
+    public void setAttributes(List<Attribute> attributes) { this.attributes = attributes; }
 }

@@ -1,6 +1,5 @@
-package com.filipeguerreiro.tddapirest;
+package com.filipeguerreiro.tddapirest.controller;
 
-import com.filipeguerreiro.tddapirest.controller.ProductController;
 import com.filipeguerreiro.tddapirest.model.Product;
 import com.filipeguerreiro.tddapirest.service.ProductService;
 import org.junit.jupiter.api.Test;
