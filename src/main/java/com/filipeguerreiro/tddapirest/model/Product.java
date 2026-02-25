@@ -12,6 +12,7 @@ public class Product {
     private String sku;
     private String title;
     private Double price;
+    private Integer stock;
 
     public Product(){}
 
@@ -55,5 +56,13 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }
