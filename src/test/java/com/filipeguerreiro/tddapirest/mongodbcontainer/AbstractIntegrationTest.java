@@ -20,7 +20,8 @@ public abstract class AbstractIntegrationTest {
 
     @BeforeAll
     static void initReplicaSet() throws IOException, InterruptedException {
-        mongoDBContainer.execInContainer("/bin/bash", "-c", "mongosh --eval 'rs.initiate()'");
+        mongoDBContainer.execInContainer("/bin/bash", "-c",
+                "mongosh --eval 'rs.initiate(); while (rs.status().ok && rs.status().myState !== 1) { print(\"Waiting for primary...\"); sleep(1000); }'");
     }
 
 }

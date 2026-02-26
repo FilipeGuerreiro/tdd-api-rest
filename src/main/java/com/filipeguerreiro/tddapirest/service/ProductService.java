@@ -4,6 +4,8 @@ import com.filipeguerreiro.tddapirest.model.Product;
 import com.filipeguerreiro.tddapirest.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -18,5 +20,9 @@ public class ProductService {
             throw new IllegalArgumentException("O preço não pode ser negativo");
         }
         return productRepository.save(product);
+    }
+
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 }

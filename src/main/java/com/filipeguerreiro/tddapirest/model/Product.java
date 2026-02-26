@@ -30,6 +30,18 @@ public class Product {
         this.price = price;
     }
 
+    public Product(
+            String id,
+            String sku,
+            String title,
+            Double price
+    ){
+        this.id = id;
+        this.sku = sku;
+        this.title = title;
+        this.price = price;
+    }
+
     public String getId() {
         return id;
     }
