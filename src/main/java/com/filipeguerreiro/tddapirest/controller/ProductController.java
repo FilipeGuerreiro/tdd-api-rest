@@ -1,6 +1,7 @@
 package com.filipeguerreiro.tddapirest.controller;
 
 import com.filipeguerreiro.tddapirest.model.Product;
+import com.filipeguerreiro.tddapirest.model.dto.CategoryStockDTO;
 import com.filipeguerreiro.tddapirest.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +28,10 @@ public class ProductController {
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         Product createdProduct = productService.create(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+    }
+
+    @GetMapping("/analytics/stock-by-category")
+    public ResponseEntity<List<CategoryStockDTO>> getStockByCategory() {
+        return ResponseEntity.ok(productService.getTotalStockByCategory());
     }
 }

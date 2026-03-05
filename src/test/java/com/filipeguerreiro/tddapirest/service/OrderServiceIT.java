@@ -1,10 +1,14 @@
 package com.filipeguerreiro.tddapirest.service;
 
+import com.filipeguerreiro.tddapirest.model.Order;
 import com.filipeguerreiro.tddapirest.model.Product;
 import com.filipeguerreiro.tddapirest.mongodbcontainer.AbstractIntegrationTest;
+import com.filipeguerreiro.tddapirest.repository.OrderRepository;
 import com.filipeguerreiro.tddapirest.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,8 +21,11 @@ class OrderServiceIT extends AbstractIntegrationTest {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Test
-    void shouldDecreaseStockWhenOrderIsCreated() {
+    void shouldDecreaseStockAndSaveOrderWhenOrderIsCreated() {
 
         // Arrange
         Product product = new Product("SKU-ORDER-1", "Monitor", 1000.0);
@@ -28,9 +35,15 @@ class OrderServiceIT extends AbstractIntegrationTest {
         // Act
         orderService.createOrder("SKU-ORDER-1", 3);
 
-        // Assert
+        // Assert Estoque do Produto
         Product updatedProduct = productRepository.findById(product.getId()).orElseThrow();
         assertThat(updatedProduct.getStock()).isEqualTo(7);
+
+        // Assert Order criado
+        List<Order> orders = orderRepository.findBySku("SKU-ORDER-1");
+        assertThat(orders).hasSize(1);
+        assertThat(orders.getFirst().getQuantity()).isEqualTo(3);
+        assertThat(orders.getFirst().getTotalPrice()).isEqualTo(3000.0);
     }
 
     @Test

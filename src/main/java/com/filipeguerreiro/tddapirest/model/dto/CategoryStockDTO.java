@@ -1,4 +1,9 @@
 package com.filipeguerreiro.tddapirest.model.dto;
 
-public record CategoryStockDTO(String id, Integer totalStock) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record CategoryStockDTO(
+        @JsonProperty("category") String id,
+        Long totalStock
+) {
 }

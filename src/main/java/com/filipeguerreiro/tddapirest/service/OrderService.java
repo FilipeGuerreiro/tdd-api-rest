@@ -1,6 +1,8 @@
 package com.filipeguerreiro.tddapirest.service;
 
+import com.filipeguerreiro.tddapirest.model.Order;
 import com.filipeguerreiro.tddapirest.model.Product;
+import com.filipeguerreiro.tddapirest.repository.OrderRepository;
 import com.filipeguerreiro.tddapirest.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderService {
 
     private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
 
-    public OrderService(ProductRepository productRepository) {
+    public OrderService(ProductRepository productRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Transactional
@@ -25,5 +29,8 @@ public class OrderService {
 
         product.setStock(product.getStock() - quantity);
         productRepository.save(product);
+
+        Order order = new Order(sku, quantity, product.getPrice() * quantity);
+        orderRepository.save(order);
     }
 }

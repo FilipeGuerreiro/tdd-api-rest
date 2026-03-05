@@ -1,12 +1,15 @@
 package com.filipeguerreiro.tddapirest.service;
 
 import com.filipeguerreiro.tddapirest.model.Product;
+import com.filipeguerreiro.tddapirest.model.dto.CategoryStockDTO;
 import com.filipeguerreiro.tddapirest.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,6 +23,25 @@ class ProductServiceTest {
 
     @InjectMocks
     private ProductService productService;
+
+    @Test
+    void shouldReturnStockByCategory() {
+        // Arrange
+        List<CategoryStockDTO> expectedResult = List.of(
+                new CategoryStockDTO("Eletronicos", 100L),
+                new CategoryStockDTO("Livros", 50L)
+        );
+        when(productRepository.aggregateTotalStockByCategory()).thenReturn(expectedResult);
+
+        // Act
+        List<CategoryStockDTO> result = productService.getTotalStockByCategory();
+
+        // Assert
+        assertEquals(2, result.size());
+        assertEquals("Eletronicos", result.getFirst().id());
+        assertEquals(100L, result.getFirst().totalStock());
+        verify(productRepository).aggregateTotalStockByCategory();
+    }
 
     @Test
     void shouldThrowExceptionWhenPriceIsNegative() {

@@ -1,7 +1,7 @@
 package com.filipeguerreiro.tddapirest.controller;
 
 import com.filipeguerreiro.tddapirest.model.Product;
-import com.filipeguerreiro.tddapirest.repository.ProductRepository;
+import com.filipeguerreiro.tddapirest.model.dto.CategoryStockDTO;
 import com.filipeguerreiro.tddapirest.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,25 @@ class ProductControllerTest {
 
     @MockitoBean
     private ProductService productService;
+
+    @Test
+    void shouldReturnStockByCategory() throws Exception {
+        // Arrange
+        List<CategoryStockDTO> stockByCategory = List.of(
+                new CategoryStockDTO("Eletronicos", 100L),
+                new CategoryStockDTO("Livros", 50L)
+        );
+        when(productService.getTotalStockByCategory()).thenReturn(stockByCategory);
+
+        // Act & Assert
+        mockMvc.perform(get("/products/analytics/stock-by-category")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].category").value("Eletronicos"))
+                .andExpect(jsonPath("$[0].totalStock").value(100))
+                .andExpect(jsonPath("$[1].category").value("Livros"))
+                .andExpect(jsonPath("$[1].totalStock").value(50));
+    }
 
     @Test
     void shouldCreateProductAndReturn201() throws Exception {

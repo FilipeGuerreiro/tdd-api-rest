@@ -1,6 +1,7 @@
 package com.filipeguerreiro.tddapirest.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,6 +18,8 @@ public class Product {
     private Integer stock;
     private String category;
     private List<Attribute> attributes;
+    @Version
+    private Long version;
 
     public Product(){}
 

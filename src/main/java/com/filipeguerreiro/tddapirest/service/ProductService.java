@@ -1,6 +1,7 @@
 package com.filipeguerreiro.tddapirest.service;
 
 import com.filipeguerreiro.tddapirest.model.Product;
+import com.filipeguerreiro.tddapirest.model.dto.CategoryStockDTO;
 import com.filipeguerreiro.tddapirest.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,9 @@ public class ProductService {
 
     public List<Product> getAll() {
         return productRepository.findAll();
+    }
+
+    public List<CategoryStockDTO> getTotalStockByCategory() {
+        return productRepository.aggregateTotalStockByCategory();
     }
 }
